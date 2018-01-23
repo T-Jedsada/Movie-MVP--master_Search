@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://C:\code\Movie2\Movie-MVP-2-master\Movie.iml" filepath="C:\code\Movie2\Movie-MVP-2-master\Movie.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Movie-MVP--master-master.iml" filepath="$PROJECT_DIR$/Movie-MVP--master-master.iml" />
+      <module fileurl="file://C:\code\Movie3\Movie-MVP--master-master\Movie-MVP-2-master.iml" filepath="C:\code\Movie3\Movie-MVP--master-master\Movie-MVP-2-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+    </modules>
+  </component>
+</project>
