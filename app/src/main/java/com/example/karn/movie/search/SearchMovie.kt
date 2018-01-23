@@ -28,6 +28,7 @@ class SearchMovie : AppCompatActivity(), SearchViewInterface {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setupMVP()
     }
 

@@ -1,5 +1,7 @@
 package com.example.karn.movie
 
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
@@ -10,7 +12,9 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.SearchView
 import android.util.TypedValue
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.example.karn.movie.movieapi.ApiClient
@@ -38,6 +42,7 @@ class NavigationMain : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navigation_main)
+        setSupportActionBar(toolbar)
         val toggle = ActionBarDrawerToggle(this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
@@ -48,8 +53,27 @@ class NavigationMain : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         adapter?.setOnClickCallback(this)
         recycler_view.adapter = adapter
 
-
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        val id = item.itemId
+        if (id == R.id.search) {
+            val i = Intent(this, SearchMovie::class.java)
+            startActivity(i)
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+
+
+
 
     override fun onBackPressed() { // การทำงานเมื่อผู้ใช้กด Back //**
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
@@ -64,21 +88,21 @@ class NavigationMain : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         when (item.itemId) {
             R.id.nav_movie -> {
                 val type: Int = 1
-                val intent = Intent(this, RecyclerMovieViewOne::class.java)
+                val intent = Intent(this, RecyclerMovieView::class.java)
                 intent.putExtra("KEY_DATA_MOVIE", type)
                 this.startActivity(intent)
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
             R.id.nav_movietwo -> {
                 val type: Int = 2
-                val intent = Intent(this, RecyclerMovieViewOne::class.java)
+                val intent = Intent(this, RecyclerMovieView::class.java)
                 intent.putExtra("KEY_DATA_MOVIE", type)
                 this.startActivity(intent)
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
             R.id.nav_moviethree -> {
                 val type: Int = 2
-                val intent = Intent(this, RecyclerMovieViewOne::class.java)
+                val intent = Intent(this, RecyclerMovieView::class.java)
                 intent.putExtra("KEY_DATA_MOVIE", type)
                 this.startActivity(intent)
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
@@ -165,5 +189,9 @@ class NavigationMain : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         this.startActivity(intent)
 
     }
+
+
+
+
 
 }

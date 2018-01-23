@@ -6,4 +6,5 @@ import android.support.v7.widget.SearchView
 
 interface SearchPresenterInterface {
     fun getResultsBasedOnQuery(searchView: SearchView)
+
 }

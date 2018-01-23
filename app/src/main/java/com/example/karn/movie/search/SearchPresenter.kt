@@ -8,7 +8,11 @@ import com.example.karn.movie.modelmovies.MoviesResponse
 import com.example.karn.movie.movieapi.ApiClient
 import com.example.karn.movie.movieapi.ApiInterface
 import io.reactivex.Observable
+import io.reactivex.ObservableSource
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.annotations.NonNull
+import io.reactivex.functions.Function
+import io.reactivex.functions.Predicate
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
@@ -17,15 +21,23 @@ import java.util.concurrent.TimeUnit
 
 class SearchPresenter(var searchviewInterface: SearchViewInterface) : SearchPresenterInterface {
 
+
     //TODO ตรงนี้ เป็น apicall
     override fun getResultsBasedOnQuery(searchView: SearchView) {
 
         getObservableQuery(searchView) //TODO รับ keyword แล้วเอามา @Query
+                .filter { s ->
+                    if (s == "") {
+                        false
+                    } else {
+                        true
+                    }
+                }
                 .debounce(2, TimeUnit.SECONDS)
                 .distinctUntilChanged()
                 .switchMap<MoviesResponse> { s ->
                     ApiClient.client.create(ApiInterface::class.java)
-                            .getMoviesBasedOnQuery("004cbaf19212094e32aa9ef6f6577f22", s)
+                            .getMoviesBasedOnQuery(s)
                 }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -60,10 +72,11 @@ class SearchPresenter(var searchviewInterface: SearchViewInterface) : SearchPres
 
             override fun onNext(movie: MoviesResponse) {
                 searchviewInterface.displayResult(movie)
-                Log.e("Next", "ShowNext-BaseURL......" + movie)
+                Log.e("Next", "ShowNext-BaseURL.." + movie)
             }
+
             override fun onError(e: Throwable) {
-                Log.e("Next", "Showerror...." + e)
+                Log.e("Next", "Showerror...." + e.message)
             }
 
             override fun onComplete() {

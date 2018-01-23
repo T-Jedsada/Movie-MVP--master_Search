@@ -19,8 +19,8 @@ interface ApiInterface {
     fun getMovie(): Call<MoviesResponse>
 
 
-    @GET("search/movie")
-    fun getMoviesBasedOnQuery(@Query("api_key") api_key: String, @Query("query") q: String): Observable<MoviesResponse>
+    @GET("search/movie?api_key=004cbaf19212094e32aa9ef6f6577f22")
+    fun getMoviesBasedOnQuery(@Query("query") q: String): Observable<MoviesResponse>
 
 
 }
