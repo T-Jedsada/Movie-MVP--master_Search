@@ -9,7 +9,6 @@ import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
 import com.example.karn.movie.R
-import com.example.karn.movie.mainadapter.MovieSearchAdapter
 import com.example.karn.movie.mainadapter.MoviesAdapter
 import com.example.karn.movie.modelmovies.MoviesResponse
 import kotlinx.android.synthetic.main.activity_main.*

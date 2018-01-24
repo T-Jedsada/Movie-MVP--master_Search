@@ -17,6 +17,7 @@ class MoviesAdapter(var movies: List<Movie>, var context: Context) : RecyclerVie
 
     var callback: MovieListListener? = null
 
+
     interface MovieListListener {
         fun onClick(movie: Movie)
     }
