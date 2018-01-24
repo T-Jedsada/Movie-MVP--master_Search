@@ -28,13 +28,10 @@ class SearchMovie : AppCompatActivity(), SearchViewInterface {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        setupMVP()
-    }
-
-
-    private fun setupMVP() {
         searchPresenter = SearchPresenter(this)
+
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
 
