@@ -18,32 +18,21 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 
-
 class SearchPresenter(var searchviewInterface: SearchViewInterface) : SearchPresenterInterface {
-
 
     //TODO ตรงนี้ เป็น apicall
     override fun getResultsBasedOnQuery(searchView: SearchView) {
-
         getObservableQuery(searchView) //TODO รับ keyword แล้วเอามา @Query
-                .filter { s ->
-                    if (s == "") {
-                        false
-                    } else {
-                        true
-                    }
-                }
+                .filter { it != "" }
                 .debounce(2, TimeUnit.SECONDS)
                 .distinctUntilChanged()
                 .switchMap<MoviesResponse> { s ->
-                    ApiClient.client.create(ApiInterface::class.java)
-                            .getMoviesBasedOnQuery(s)
+                    // TODO : handler other class
+                    ApiClient.client.create(ApiInterface::class.java).getMoviesBasedOnQuery(s)
                 }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith<DisposableObserver<MoviesResponse>>(getObserver())
-
-
     }
 
     //TODO ตรงนี้ เป็น RX ของการกรอกข้อมูลจาก user ในช่อง Search
@@ -67,23 +56,18 @@ class SearchPresenter(var searchviewInterface: SearchViewInterface) : SearchPres
     }
 
     //TODO ตรงนี้เป็น RX  ของการ call Api
-    fun getObserver(): DisposableObserver<MoviesResponse> {
-        return object : DisposableObserver<MoviesResponse>() {
+    fun getObserver(): DisposableObserver<MoviesResponse> = object : DisposableObserver<MoviesResponse>() {
+        override fun onNext(movie: MoviesResponse) {
+            searchviewInterface.displayResult(movie)
+            Log.e("Next", "ShowNext-BaseURL.." + movie)
+        }
 
-            override fun onNext(movie: MoviesResponse) {
-                searchviewInterface.displayResult(movie)
-                Log.e("Next", "ShowNext-BaseURL.." + movie)
-            }
+        override fun onError(e: Throwable) {
+            Log.e("Next", "Showerror...." + e.message)
+        }
 
-            override fun onError(e: Throwable) {
-                Log.e("Next", "Showerror...." + e.message)
-            }
-
-            override fun onComplete() {
-                Log.e("Next", "ShowLogComplete")
-            }
+        override fun onComplete() {
+            Log.e("Next", "ShowLogComplete")
         }
     }
-
-
 }

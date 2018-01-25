@@ -16,9 +16,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-class RecyclerMovieView : AppCompatActivity(), MoviesAdapter.MovieListListener, Contact.view_dialog, Contact.view_Response {
-    lateinit var presenter: Contact.dialog
-    lateinit var presenterApi: Contact.apiService
+
+class RecyclerMovieView : AppCompatActivity(), MoviesAdapter.MovieListListener, Contact.ViewDialog, Contact.ViewResponse {
+    lateinit var presenter: Contact.Dialog
+    lateinit var presenterApi: Contact.ApiService
     var movieAdapter: MoviesAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,18 +27,17 @@ class RecyclerMovieView : AppCompatActivity(), MoviesAdapter.MovieListListener, 
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        var type = intent.extras.getInt("KEY_DATA_MOVIE")
+        val type = intent.extras.getInt("KEY_DATA_MOVIE")
         presenterApi = Presenter(this)
         presenterApi.callApiService(type, this)
 
-        //movies?.setLayoutManager(LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)) //TODO ทำแนว linearlayou //
-        movies?.setLayoutManager(LinearLayoutManager(this))
+        //TODO ทำแนว linear layout
+        //movies?.setLayoutManager(LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false))
+        movies?.layoutManager = LinearLayoutManager(this)
         movieAdapter = MoviesAdapter(listOf(), this)
         movieAdapter?.setOnClickCallback(this)
         movies.adapter = movieAdapter
     }
-
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
@@ -54,8 +54,6 @@ class RecyclerMovieView : AppCompatActivity(), MoviesAdapter.MovieListListener, 
         return super.onOptionsItemSelected(item)
     }
 
-
-
     override fun finish() {
         super.finish()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
@@ -66,13 +64,10 @@ class RecyclerMovieView : AppCompatActivity(), MoviesAdapter.MovieListListener, 
         presenter.showDialog(movie.title!!, movie.overview!!, movie.backdropPath!!, this)
     }
 
-
-    override fun viewdialog(texttitle: String, overview: String, backdropPath: String) {
-        val intent = Intent(this, DetailsMovie::class.java)
-        intent.putExtra("KEY_DATA", overview)
-        intent.putExtra("KEY_BACKDROPPATH", backdropPath)
-        this.startActivity(intent)
-    }
+    override fun viewDialog(textTitle: String, overview: String, backdropPath: String) = startActivity(Intent(this, DetailsMovie::class.java).apply {
+        putExtra("KEY_DATA", overview)
+        putExtra("KEY_BACKDROPPATH", backdropPath)
+    })
 
     override fun viewResponse(api: Call<MoviesResponse>) {
         api.enqueue(object : Callback<MoviesResponse> {
@@ -83,12 +78,5 @@ class RecyclerMovieView : AppCompatActivity(), MoviesAdapter.MovieListListener, 
 
             override fun onFailure(call: Call<MoviesResponse>, t: Throwable) {}
         })
-
     }
-
-
-
-
-
-
 }

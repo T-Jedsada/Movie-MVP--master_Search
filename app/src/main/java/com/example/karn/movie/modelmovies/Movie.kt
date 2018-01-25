@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 import java.util.ArrayList
 
-
 class Movie(@SerializedName("poster_path")var posterPath: String?,
             @SerializedName("adult") var isAdult: Boolean,
             @SerializedName("overview") var overview: String?,
@@ -22,12 +21,10 @@ class Movie(@SerializedName("poster_path")var posterPath: String?,
     @SerializedName("genre_ids")
     var genreIds: List<Int> = ArrayList()
 
-    init { // init มันจะถูกเรียกใช้ ก่อน constructor
+    // TODO : init มันจะถูกเรียกใช้ ก่อน constructor
+    init {
         this.genreIds = genreIds
     }
-
-
-
 }
 
 

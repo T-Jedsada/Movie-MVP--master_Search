@@ -14,15 +14,12 @@ import com.example.karn.movie.mainadapter.MoviesAdapterSearch
 import com.example.karn.movie.modelmovies.MoviesResponse
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 class SearchMovie : AppCompatActivity(), SearchViewInterface {
-
 
     var searchView: SearchView? = null
     var searchPresenter: SearchPresenter? = null
 
-    internal lateinit var adapter: RecyclerView.Adapter<*>
-
+    private lateinit var adapter: RecyclerView.Adapter<*>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +27,9 @@ class SearchMovie : AppCompatActivity(), SearchViewInterface {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         searchPresenter = SearchPresenter(this)
-
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-
         menuInflater.inflate(R.menu.menu_search, menu)
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         searchView = menu.findItem(R.id.action_search)
@@ -55,12 +49,9 @@ class SearchMovie : AppCompatActivity(), SearchViewInterface {
         } else super.onOptionsItemSelected(item)
     }
 
-
     //TODO ส่วน ของการShow RecyclerView //TODO เหลือ เอา movie   // เดี่ยวกลัยไปดู movirespon //
     override fun displayResult(movie: MoviesResponse) {
         adapter = MoviesAdapterSearch(movie.results!!, this)
-        movies.setAdapter(adapter)
+        movies.adapter = adapter
     }
-
-
 }

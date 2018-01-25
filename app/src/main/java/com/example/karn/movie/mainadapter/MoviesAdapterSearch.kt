@@ -14,9 +14,7 @@ import kotlinx.android.synthetic.main.recyclerview_desing2.view.*
 
 class MoviesAdapterSearch(var movies: List<Movie>, var context: Context) : RecyclerView.Adapter<MoviesAdapterSearch.MovieViewHolder>() {
 
-
     var callback: MovieListListener? = null
-
 
     interface MovieListListener {
         fun onClick(movie: Movie)
@@ -46,23 +44,16 @@ class MoviesAdapterSearch(var movies: List<Movie>, var context: Context) : Recyc
     inner class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun onBindata(movie: Movie) {
-            itemView.title.setText(movie.title)
-            itemView.subtitle.setText(movie.releaseDate)
-            itemView.rating.setText(movie.voteAverage.toString())
-
-            val setbaseurl = BaseUrl()
+            itemView.title.text = movie.title
+            itemView.subtitle.text = movie.releaseDate
+            itemView.rating.text = movie.voteAverage.toString()
             Picasso.with(context)
-                    .load(setbaseurl.textbaseurl + movie.posterPath)
+                    .load(BaseUrl.textbaseurl + movie.posterPath)
                     .into(itemView.TV)
-
-
             itemView.TV.setOnClickListener {
                 callback?.onClick(movie)
 
             }
-
-
         }
-
     }
 }

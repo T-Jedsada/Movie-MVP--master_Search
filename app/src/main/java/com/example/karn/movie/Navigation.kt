@@ -1,4 +1,5 @@
 package com.example.karn.movie
+
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -11,10 +12,7 @@ import com.example.karn.movie.search.SearchMovie
 import kotlinx.android.synthetic.main.activity_navigation_main.*
 import kotlinx.android.synthetic.main.app_bar_navigation_main.*
 
-
-
 class Navigation : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +22,6 @@ class Navigation : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
         nav_view.setNavigationItemSelectedListener(this)
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -43,18 +40,11 @@ class Navigation : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         return super.onOptionsItemSelected(item)
     }
 
-
-
-
-
-    override fun onBackPressed() { // การทำงานเมื่อผู้ใช้กด Back //**
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
+    override fun onBackPressed() = if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+        drawer_layout.closeDrawer(GravityCompat.START)
+    } else {
+        super.onBackPressed()
     }
-
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -84,18 +74,8 @@ class Navigation : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
                 this.startActivity(intent)
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
-
         }
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
-
-
-
-
-
-
-
-
-
 }

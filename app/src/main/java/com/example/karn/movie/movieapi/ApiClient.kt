@@ -11,13 +11,12 @@ object ApiClient {
     val okHttpClient = builder.build()  //TODO
     val client: Retrofit
         get() {
-            if (retrofit == null) {
-                retrofit = Retrofit.Builder()
-                        .baseUrl("http://api.themoviedb.org/3/")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create()) //TODO
-                        .client(okHttpClient) //TODO
-                        .build() }
+            retrofit = Retrofit.Builder()
+                    .baseUrl("http://api.themoviedb.org/3/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create()) //TODO
+                    .client(okHttpClient) //TODO
+                    .build()
             return retrofit!!
         }
 }

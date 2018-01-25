@@ -1,6 +1,5 @@
 package com.example.karn.movie.mainadapter
 
-import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,50 +9,34 @@ import com.example.karn.movie.R
 import com.example.karn.movie.movieapi.BaseUrl
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.album_card.view.*
+import kotlin.properties.Delegates
 
+typealias AlbumsListener = (movie: Movie) -> Unit
 
-class AlbumsAdapter(var albumList: List<Movie>, var mContext: Context) : RecyclerView.Adapter<AlbumsAdapter.MyViewHolder>() {
+class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.MyViewHolder>() {
+
     var callback: AlbumsListener? = null
 
-    interface AlbumsListener {
-        fun onClick(movie: Movie)
-    }
-
-    fun setOnClickCallback(callBack: AlbumsListener) {
-        this.callback = callBack
-    }
-
-    fun setItem(items: List<Movie>) {
-        albumList = items
+    var list: List<Movie> by Delegates.observable(listOf()) { _, _, _ ->
         notifyDataSetChanged()
     }
 
+    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): MyViewHolder =
+            MyViewHolder(LayoutInflater.from(viewGroup.context).inflate(R.layout.album_card, viewGroup, false))
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): MyViewHolder {
-        val view = LayoutInflater.from(viewGroup.context)
-                .inflate(R.layout.album_card, viewGroup, false)
-        return MyViewHolder(view)
-    }
+    override fun onBindViewHolder(viewHolder: MyViewHolder, i: Int) = viewHolder.onBindData(list[i])
 
-    override fun onBindViewHolder(viewHolder: MyViewHolder, i: Int) = viewHolder.onBindata(albumList[i])
+    override fun getItemCount(): Int = list.size
 
-    override fun getItemCount(): Int {
-        return albumList.size
-    }
-
-    inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun onBindata(movie: Movie) {
-            itemView.title.setText(movie.title)
-            val setbaseurl = BaseUrl()
-            Picasso.with(mContext)
-                    .load(setbaseurl.textbaseurl + movie.backdropPath)
+    inner class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+        fun onBindData(movie: Movie) {
+            itemView.title.text = movie.title
+            Picasso.with(view.context)
+                    .load(BaseUrl.textbaseurl + movie.backdropPath)
                     .placeholder(R.drawable.loading)
                     .error(R.drawable.loading)
                     .into(itemView.thumbnail)
-
-            itemView.thumbnail.setOnClickListener {
-                callback?.onClick(movie)
-            }
+            itemView.thumbnail.setOnClickListener { callback?.invoke(movie) }
         }
     }
 }
