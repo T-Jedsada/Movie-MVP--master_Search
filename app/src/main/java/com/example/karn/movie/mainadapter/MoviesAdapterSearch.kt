@@ -10,7 +10,7 @@ import com.example.karn.movie.modelmovies.Movie
 import com.example.karn.movie.movieapi.BaseUrl
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_item_movie.view.*
-import kotlinx.android.synthetic.main.recyclerview_desing2.view.*
+
 
 class MoviesAdapterSearch(var movies: List<Movie>, var context: Context) : RecyclerView.Adapter<MoviesAdapterSearch.MovieViewHolder>() {
 
