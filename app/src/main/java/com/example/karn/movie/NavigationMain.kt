@@ -66,6 +66,7 @@ class NavigationMain : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         if (id == R.id.search) {
             val i = Intent(this, SearchMovie::class.java)
             startActivity(i)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
         return super.onOptionsItemSelected(item)
@@ -101,7 +102,7 @@ class NavigationMain : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
             R.id.nav_moviethree -> {
-                val type: Int = 2
+                val type: Int = 3
                 val intent = Intent(this, RecyclerMovieView::class.java)
                 intent.putExtra("KEY_DATA_MOVIE", type)
                 this.startActivity(intent)

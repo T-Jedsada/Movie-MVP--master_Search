@@ -22,13 +22,17 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <com.southernbox.parallaxrecyclerview.ParallaxRecyclerView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/movies"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/appbarlayout"
         android:layout_marginTop="10dp"
         android:scrollbars="vertical" />
+
+
+
+
 
 
 </RelativeLayout>

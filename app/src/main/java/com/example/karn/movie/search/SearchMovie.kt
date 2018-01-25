@@ -10,6 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.example.karn.movie.R
 import com.example.karn.movie.mainadapter.MoviesAdapter
+import com.example.karn.movie.mainadapter.MoviesAdapterSearch
 import com.example.karn.movie.modelmovies.MoviesResponse
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -25,7 +26,7 @@ class SearchMovie : AppCompatActivity(), SearchViewInterface {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_search)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         searchPresenter = SearchPresenter(this)
@@ -57,7 +58,7 @@ class SearchMovie : AppCompatActivity(), SearchViewInterface {
 
     //TODO ส่วน ของการShow RecyclerView //TODO เหลือ เอา movie   // เดี่ยวกลัยไปดู movirespon //
     override fun displayResult(movie: MoviesResponse) {
-        adapter = MoviesAdapter(movie.results!!, this)
+        adapter = MoviesAdapterSearch(movie.results!!, this)
         movies.setAdapter(adapter)
     }
 

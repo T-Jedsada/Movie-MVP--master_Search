@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import java.util.ArrayList
 
 
-class Movie(var posterPath: String?,
+class Movie(@SerializedName("poster_path")var posterPath: String?,
             @SerializedName("adult") var isAdult: Boolean,
             @SerializedName("overview") var overview: String?,
             @SerializedName("release_date") var releaseDate: String?, genreIds: List<Int>,

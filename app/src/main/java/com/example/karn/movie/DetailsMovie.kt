@@ -21,7 +21,6 @@ class DetailsMovie : AppCompatActivity() {
         val setbaseurl = BaseUrl()
         Picasso.with(this)
                 .load(setbaseurl.textbaseurl + subpath)
-                .placeholder(R.drawable.loading)
                 .error(R.drawable.loading)
                 .into(imageMoview)
     }

@@ -2,18 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativelayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/relativelayout"
     tools:context="com.example.karn.movie.DetailsMovie">
 
 
-
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbarlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/appbarlayout"
         android:theme="@style/AppTheme.AppBarOverlay">
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -25,26 +25,49 @@
 
 
     <ImageView
-        android:layout_marginTop="37dp"
-        android:layout_below="@+id/relativelayout"
         android:id="@+id/imageMoview"
         android:layout_width="match_parent"
         android:layout_height="270dp"
+        android:layout_below="@+id/relativelayout"
+        android:layout_marginTop="37dp"
         tools:ignore="NotSibling,UnknownId" />
 
+
+
+
+    <android.support.v7.widget.CardView
+        android:background="#000"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageMoview">
+
         <android.support.v7.widget.AppCompatTextView
-            android:layout_below="@+id/imageMoview"
+            android:id="@+id/title"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:padding="7dp"
+            android:text="Title:"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.AppCompatTextView>
+
+
+
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/sub"
+            android:layout_marginTop="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
             android:layout_gravity="top"
             android:padding="7dp"
             android:textColor="@color/colorBlack"
             android:textSize="16sp"
             android:textStyle="bold"
-            tools:text="เนื้อเรื่องหนัง" />
+            tools:text="เนื้อเรื่อง" />
 
-
+    </android.support.v7.widget.CardView>
 
 
 </RelativeLayout>
